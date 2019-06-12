@@ -8,8 +8,11 @@ const userRoutes = require('./api/routes/user')
 
 // Connect to database
 mongoose.connect(
-    "mongodb+srv://Admin:fZe7igxmI54zFLXA@languagedetector-rest-api-vak7v.mongodb.net/test?retryWrites=true&w=majority",
-    {useNewUrlParser: true}
+    process.env.DB_CONNECTION.toString(),
+    {
+        useCreateIndex: true,
+        useNewUrlParser: true
+    }
 )
 
 // Logging purposes
