@@ -1,0 +1,21 @@
+{
+  "name": "languagedetector-rest-api",
+  "version": "1.0.0",
+  "description": "A Node.js Restful API for (Language detection)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "restful",
+    "api",
+    "language",
+    "detection"
+  ],
+  "author": "f.j.parengkuan@st.hanze.nl",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
