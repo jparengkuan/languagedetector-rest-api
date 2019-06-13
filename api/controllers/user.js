@@ -25,6 +25,7 @@ exports.user_register =  (req, res, next) => {
                     } else {
                         const user = new UserModel({
                             _id: new mongoose.Types.ObjectId(),
+                            name: req.body.name,
                             email: req.body.email,
                             password: hash
                         });
@@ -70,6 +71,7 @@ exports.user_login = (req, res, next) => {
 
                 if (result) {
                     const token = jwt.sign({
+                            name: user[0].name,
                             email: user[0].email,
                             userId: user[0]._id
                         },
@@ -97,6 +99,22 @@ exports.user_login = (req, res, next) => {
                 error: err
             });
         });
+
+};
+
+exports.user_details = (req, res, next) => {
+
+    res.status(200).json({
+        name: req.userData.name,
+        email: req.userData.email
+    });
+
+};
+
+
+exports.user_update = (req, res, next) => {
+
+    //TODO update user information
 
 };
 

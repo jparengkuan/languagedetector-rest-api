@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    name: {
+        type: String,
+        required: true,
+        minlength: 3,
+        maxlength: 10,
+        match: /^([a-zA-Z]+?)([-\s'][a-zA-Z]+)*?$/
+    },
     email: {
         type: String,
         required: true,
