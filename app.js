@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 const userRoutes = require('./api/routes/user')
+const entrieRoutes = require('./api/routes/entrie')
 
 // Connect to database
 mongoose.connect(
@@ -38,6 +39,7 @@ app.use(bodyParser.json());
 
 // Routes wich should handle requests
 app.use('/user', userRoutes)
+app.use('/entrie', entrieRoutes)
 
 // If no route is found display a error
 app.use((req, res, next) => {
