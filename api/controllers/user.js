@@ -104,18 +104,55 @@ exports.user_login = (req, res, next) => {
 
 exports.user_details = (req, res, next) => {
 
-    res.status(200).json({
-        name: req.userData.name,
-        email: req.userData.email
-    });
+    UserModel.findById(req.userData.userId, 'name email -_id')
+        .then( user => {
+            res.status(200).json({
+                user
+            });
+        })
+        .catch( err => {
+            res.status(404).json({
+                error: err
+            })
+
+        })
 
 };
 
 
 exports.user_update = (req, res, next) => {
 
-    //TODO update user information
 
+
+    if (!req.body.name || !req.body.password) {
+        return res.status(400).json({
+            error: "Username or password not supplied"
+        });
+    }
+
+
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+            return res.status(500).json({
+                hallo: "test",
+                error: err
+            });
+        } else {
+            UserModel.findByIdAndUpdate(req.userData.userId, {name: req.body.name, password: hash}, {new: true})
+                .then(result => {
+                    console.log(result)
+                    res.status(201).json({
+                        message: 'User details updated'
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                })
+        }
+    });
 };
 
 
