@@ -6,7 +6,9 @@ const router = express.Router();
 const EntrieController = require('../controllers/entrie')
 
 
-router.get('/new', checkAuth, EntrieController.submit_new);
+router.post('/new', checkAuth, EntrieController.entrie_new);
+router.get('/user', checkAuth, EntrieController.entrie_user);
+router.get('/latest', EntrieController.entrie_latest);
 
 
 module.exports = router;

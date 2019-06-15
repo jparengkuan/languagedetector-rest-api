@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const entrieSchema = mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
 
     date: {
         type: Date,
@@ -15,14 +11,16 @@ const entrieSchema = mongoose.Schema({
         type: String,
         required: true,
         minlength: 2,
-        maxlength: 10,
+        maxlength: 15,
         match: /^[a-zA-Z0-9]*$/
     },
 
     result: {
         type: String,
         required: true
-    }
+    },
+
+    user : { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 
