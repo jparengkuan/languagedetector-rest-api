@@ -52,6 +52,11 @@ exports.user_register =  (req, res, next) => {
 };
 
 exports.user_login = (req, res, next) => {
+
+    console.log("user trying to log in");
+    console.log(req.body.email);
+    console.log(req.body.password);
+
     UserModel.find({email: req.body.email})
         .exec()
         .then(user => {
