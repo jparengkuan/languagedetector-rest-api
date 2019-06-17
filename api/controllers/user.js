@@ -34,7 +34,7 @@ exports.user_register =  (req, res, next) => {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if (err) {
                         return res.status(500).json({
-                            error: err
+                            message: err
                         });
                     } else {
                         const user = new UserModel({
@@ -54,7 +54,7 @@ exports.user_register =  (req, res, next) => {
                             .catch(err => {
                                 console.log(err);
                                 res.status(500).json({
-                                    error: err
+                                    message: err
                                 });
                             })
                     }
@@ -115,7 +115,7 @@ exports.user_login = (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                message: err
             });
         });
 
@@ -131,7 +131,7 @@ exports.user_details = (req, res, next) => {
         })
         .catch( err => {
             res.status(404).json({
-                error: err
+                message: err
             })
 
         })
