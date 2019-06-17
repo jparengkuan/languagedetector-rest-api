@@ -1,7 +1,7 @@
 # languagedetector-rest-api
 A Node.js Restful API for detecting languages
 
-#Setup 
+# Setup 
 
 Create a config file named 'nodemon.js' in the root directory with the following content
 
