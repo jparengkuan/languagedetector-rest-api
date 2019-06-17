@@ -6,6 +6,20 @@ const jwt = require("jsonwebtoken");
 
 exports.user_register =  (req, res, next) => {
 
+    //check if password have a minimum of 5 chars
+    if (!req.body.password) {
+        return res.status(500).json({
+            message: "Password not supplied"
+        });
+    }
+    else if (req.body.password.length < 5)
+    {
+        return res.status(500).json({
+            message: "Password Does Not Meet Requirements"
+        });
+    }
+
+
     //Check if there is already a user registered with the same email
     UserModel.find({email: req.body.email})
         .exec()

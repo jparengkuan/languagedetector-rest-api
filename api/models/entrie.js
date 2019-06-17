@@ -11,8 +11,7 @@ const entrieSchema = mongoose.Schema({
         type: String,
         required: true,
         minlength: 2,
-        maxlength: 15,
-        match: /^[a-zA-Z0-9]*$/
+        maxlength: 15
     },
 
     result: {
