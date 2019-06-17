@@ -1,10 +1,10 @@
 # languagedetector-rest-api
 A Node.js Restful API for detecting languages
 
-# Setup 
+## Setup 
 
 Create a config file named 'nodemon.js' in the root directory with the following content
-
+```json
 {
   "env": {
     "DB_CONNECTION": "mongodb+srv://<Connection here>",
@@ -13,4 +13,4 @@ Create a config file named 'nodemon.js' in the root directory with the following
     "DETECT_LANGUAGE_API_KEY": "<www.detectlanguage.com API KEY>"
   }
 }
-
+```
