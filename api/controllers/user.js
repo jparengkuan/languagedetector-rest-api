@@ -139,13 +139,19 @@ exports.user_details = (req, res, next) => {
 };
 
 
-exports.user_update = (req, res, next) => {
+exports.user_update_password = (req, res, next) => {
 
 
-
-    if (!req.body.name || !req.body.password) {
-        return res.status(400).json({
-            error: "Username or password not supplied"
+    //check if password have a minimum of 5 chars
+    if (!req.body.password) {
+        return res.status(500).json({
+            message: "Password not supplied"
+        });
+    }
+    else if (req.body.password.length < 5)
+    {
+        return res.status(500).json({
+            message: "Password Does Not Meet Requirements"
         });
     }
 
@@ -153,15 +159,14 @@ exports.user_update = (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
             return res.status(500).json({
-                hallo: "test",
                 error: err
             });
         } else {
-            UserModel.findByIdAndUpdate(req.userData.userId, {name: req.body.name, password: hash}, {new: true})
+            UserModel.findByIdAndUpdate(req.userData.userId, {password: hash}, {new: true})
                 .then(result => {
                     console.log(result)
                     res.status(201).json({
-                        message: 'User details updated'
+                        message: 'password updated!'
                     });
                 })
                 .catch(err => {
@@ -172,6 +177,38 @@ exports.user_update = (req, res, next) => {
                 })
         }
     });
+};
+
+exports.user_update_name = (req, res, next) => {
+
+
+    //check if password have a minimum of 3
+    if (!req.body.name) {
+        return res.status(500).json({
+            message: "Name not supplied"
+        });
+    }
+    else if (req.body.name.length < 3)
+    {
+        return res.status(500).json({
+            message: "Name Does Not Meet Requirements"
+        });
+    }
+
+            UserModel.findByIdAndUpdate(req.userData.userId, {name: req.body.name}, {new: true})
+                .then(result => {
+                    console.log(result)
+                    res.status(201).json({
+                        message: 'Name updated!'
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                })
+
 };
 
 
