@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 exports.user_register =  (req, res, next) => {
-
+//IK HEB EEN COMMENT GEMAAKT
     //check if password have a minimum of 5 chars
     if (!req.body.password) {
         return res.status(500).json({
