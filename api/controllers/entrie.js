@@ -9,7 +9,7 @@ const detectLanguage = new DetectLanguage({
 
 exports.entrie_new =  (req, res, next) => {
 
-    //check if password have a minimum of 2 chars
+    //check if text have a minimum of 2 chars see entrie model
     if (!req.body.text) {
         return res.status(500).json({
             message: "Text not supplied"
@@ -21,6 +21,9 @@ exports.entrie_new =  (req, res, next) => {
             message: "Text Does Not Meet Requirements"
         });
     }
+
+    //todo: check if solutions already exist in database
+
 
     detectLanguage.detect(req.body.text, function(err, result) {
        if(result)
