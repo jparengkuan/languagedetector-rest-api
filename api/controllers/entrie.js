@@ -22,43 +22,59 @@ exports.entrie_new =  (req, res, next) => {
         });
     }
 
-    //todo: check if solutions already exist in database
+  //heck if solutions already exist in database
+
+    EntrieModel.find({text: req.body.text}).select('result -_id')
+        .populate('user', 'name -_id')
+        .exec()
+        .then( result => {
+            if (result.length >= 1) {
+                return res.status(200).json({
+                    lang: "User " + result[0].user.name + " already submitted this string, the result was: " + result[0].result
+                });
+            }
+            else {
+
+                detectLanguage.detect(req.body.text, function(err, result) {
+                    if(result)
+                    {
+                        const lang = result[0].language;
+
+                        const Entrie = new EntrieModel({
+                            date: new Date(),
+                            text: req.body.text,
+                            result: lang,
+                            user: req.userData.userId
+                        });
+
+                        Entrie
+                            .save()
+                            .then(result => {
+                                console.log(result)
+                                res.status(201).json({
+                                    lang: lang
+                                });
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                res.status(500).json({
+                                    error: err
+                                });
+                            })
+
+                    }
+                    else {
+                        res.status(500).json({
+                            error: err
+                        })
+                    }
+                });
+
+            }
+        })
 
 
-    detectLanguage.detect(req.body.text, function(err, result) {
-       if(result)
-       {
-           const lang = result[0].language;
 
-           const Entrie = new EntrieModel({
-               date: new Date(),
-               text: req.body.text,
-               result: lang,
-               user: req.userData.userId
-           });
-
-           Entrie
-               .save()
-               .then(result => {
-                   console.log(result)
-                   res.status(201).json({
-                       lang: lang
-                   });
-               })
-               .catch(err => {
-                   console.log(err);
-                   res.status(500).json({
-                       error: err
-                   });
-               })
-
-       }
-       else {
-           res.status(500).json({
-               error: err
-           })
-       }
-    });
 
 
 
