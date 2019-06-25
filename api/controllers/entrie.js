@@ -9,6 +9,15 @@ const detectLanguage = new DetectLanguage({
 
 exports.entrie_new =  (req, res, next) => {
 
+    //check if both latitude longitude are not 0
+    //if this is the case reject the submit
+
+    if(!req.body.latitude && req.body.latitude == "0" && !req.body.longitude && req.body.longitude == "0" ) {
+        return res.status(500).json({
+            message: "Geolocation not supplied! please update the policies on your device"
+        });
+    }
+
     //check if text have a minimum of 2 chars see entrie model
     if (!req.body.text) {
         return res.status(500).json({
@@ -22,7 +31,7 @@ exports.entrie_new =  (req, res, next) => {
         });
     }
 
-  //heck if solutions already exist in database
+  //Check if solutions already exist in database
 
     EntrieModel.find({text: req.body.text}).select('result -_id')
         .populate('user', 'name -_id')
@@ -44,7 +53,10 @@ exports.entrie_new =  (req, res, next) => {
                             date: new Date(),
                             text: req.body.text,
                             result: lang,
+                            latitude: req.body.latitude,
+                            longitude: req.body.longitude,
                             user: req.userData.userId
+
                         });
 
                         Entrie
