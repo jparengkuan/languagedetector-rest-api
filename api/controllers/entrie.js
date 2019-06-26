@@ -1,6 +1,7 @@
 
 const EntrieModel = require('../models/entrie');
 const mongoose = require("mongoose");
+
 const DetectLanguage = require('detectlanguage');
 const detectLanguage = new DetectLanguage({
     key: process.env.DETECT_LANGUAGE_API_KEY
@@ -9,14 +10,6 @@ const detectLanguage = new DetectLanguage({
 
 exports.entrie_new =  (req, res, next) => {
 
-    //check if both latitude longitude are not 0
-    //if this is the case reject the submit
-
-    if(!req.body.latitude && req.body.latitude == "0" && !req.body.longitude && req.body.longitude == "0" ) {
-        return res.status(500).json({
-            message: "Geolocation not supplied! please update the policies on your device"
-        });
-    }
 
     //check if text have a minimum of 2 chars see entrie model
     if (!req.body.text) {

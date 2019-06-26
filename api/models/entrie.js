@@ -19,16 +19,6 @@ const entrieSchema = mongoose.Schema({
         required: true
     },
 
-    latitude: {
-        type: String,
-        required: true
-    },
-
-    longitude: {
-        type: String,
-        required: true
-    },
-
     user : { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
